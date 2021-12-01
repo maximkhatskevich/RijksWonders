@@ -9,6 +9,12 @@ public struct CollectionEndpoint: SomeGetRequest {
     
     /// The number of results per page. 1-100
     public var ps: UInt?
+    
+    public init(culture: CollectionEndpoint.Culture = .en, p: UInt? = nil, ps: UInt? = nil) {
+        self.culture = culture
+        self.p = p
+        self.ps = ps
+    }
 }
 
 // MARK: - Calculated properties
