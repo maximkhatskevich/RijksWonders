@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  RijksWonders
-//
-//  Created by Maxim Khatskevich on 01/12/2021.
-//
-
 import UIKit
 
 class ViewController: UIViewController {
@@ -14,7 +7,4 @@ class ViewController: UIViewController {
         
         view.backgroundColor = .red
     }
-
-
 }
-
