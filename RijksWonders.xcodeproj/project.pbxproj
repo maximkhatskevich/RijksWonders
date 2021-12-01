@@ -17,8 +17,11 @@
 		948514712757F53700FD3C8B /* RijksWondersServices.h in Headers */ = {isa = PBXBuildFile; fileRef = 948514652757F53600FD3C8B /* RijksWondersServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		948514792757F59E00FD3C8B /* SomeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948514782757F59E00FD3C8B /* SomeRequest.swift */; };
 		9485147C2757F65100FD3C8B /* CollectionEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9485147B2757F65100FD3C8B /* CollectionEndpoint.swift */; };
+		9485147E2757FD3F00FD3C8B /* SomeBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9485147D2757FD3F00FD3C8B /* SomeBackend.swift */; };
 		948514802757FFC000FD3C8B /* SomeResponsePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9485147F2757FFC000FD3C8B /* SomeResponsePayload.swift */; };
+		948514822758027A00FD3C8B /* Backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948514812758027A00FD3C8B /* Backend.swift */; };
 		94851484275803A500FD3C8B /* SomeGetRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94851483275803A500FD3C8B /* SomeGetRequest.swift */; };
+		9485148627581A9D00FD3C8B /* BackendTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9485148527581A9D00FD3C8B /* BackendTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,8 +48,11 @@
 		9485146F2757F53700FD3C8B /* CollectionEndpointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionEndpointTests.swift; sourceTree = "<group>"; };
 		948514782757F59E00FD3C8B /* SomeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeRequest.swift; sourceTree = "<group>"; };
 		9485147B2757F65100FD3C8B /* CollectionEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionEndpoint.swift; sourceTree = "<group>"; };
+		9485147D2757FD3F00FD3C8B /* SomeBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeBackend.swift; sourceTree = "<group>"; };
 		9485147F2757FFC000FD3C8B /* SomeResponsePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeResponsePayload.swift; sourceTree = "<group>"; };
+		948514812758027A00FD3C8B /* Backend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backend.swift; sourceTree = "<group>"; };
 		94851483275803A500FD3C8B /* SomeGetRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeGetRequest.swift; sourceTree = "<group>"; };
+		9485148527581A9D00FD3C8B /* BackendTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +121,8 @@
 				9485147F2757FFC000FD3C8B /* SomeResponsePayload.swift */,
 				948514782757F59E00FD3C8B /* SomeRequest.swift */,
 				94851483275803A500FD3C8B /* SomeGetRequest.swift */,
+				9485147D2757FD3F00FD3C8B /* SomeBackend.swift */,
+				948514812758027A00FD3C8B /* Backend.swift */,
 				9485147A2757F62300FD3C8B /* Endpoints */,
 			);
 			path = RijksWondersServices;
@@ -124,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				9485146F2757F53700FD3C8B /* CollectionEndpointTests.swift */,
+				9485148527581A9D00FD3C8B /* BackendTests.swift */,
 			);
 			path = RijksWondersServicesTests;
 			sourceTree = "<group>";
@@ -290,6 +299,8 @@
 				9485147C2757F65100FD3C8B /* CollectionEndpoint.swift in Sources */,
 				948514792757F59E00FD3C8B /* SomeRequest.swift in Sources */,
 				948514802757FFC000FD3C8B /* SomeResponsePayload.swift in Sources */,
+				9485147E2757FD3F00FD3C8B /* SomeBackend.swift in Sources */,
+				948514822758027A00FD3C8B /* Backend.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +308,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9485148627581A9D00FD3C8B /* BackendTests.swift in Sources */,
 				948514702757F53700FD3C8B /* CollectionEndpointTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
