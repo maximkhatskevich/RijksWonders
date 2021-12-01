@@ -1,3 +1,4 @@
+/// https://data.rijksmuseum.nl/object-metadata/api/#collection-api
 public struct CollectionEndpoint: SomeGetRequest {
     
     /// The language to search in (and of the results).
@@ -40,12 +41,33 @@ public extension CollectionEndpoint {
     enum Culture: String {
         case en, nl
     }
-}
-
-// MARK: - Response
-
-public extension CollectionEndpoint {
+    
     struct ResponsePayload: SomeResponsePayload {
         public let count: Int
+        public let artObjects: [ArtObject]
+    }
+    
+    struct ArtObject: Decodable {
+        public let links: Links
+        public let id: String
+        public let title: String
+        public let principalOrFirstMaker: String
+        public let longTitle: String
+        public let webImage: ImageMetadata
+        public let headerImage: ImageMetadata
+    }
+}
+
+public extension CollectionEndpoint.ArtObject {
+    
+    struct Links: Decodable {
+        
+        public let `self`: URL
+        public let web: URL
+    }
+    
+    struct ImageMetadata: Decodable {
+        public let guid: String
+        public let url: URL
     }
 }
