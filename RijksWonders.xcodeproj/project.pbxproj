@@ -13,8 +13,12 @@
 		948514562757EE7200FD3C8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 948514552757EE7200FD3C8B /* Assets.xcassets */; };
 		948514592757EE7200FD3C8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 948514572757EE7200FD3C8B /* LaunchScreen.storyboard */; };
 		9485146B2757F53700FD3C8B /* RijksWondersServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948514632757F53600FD3C8B /* RijksWondersServices.framework */; };
-		948514702757F53700FD3C8B /* RijksWondersServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9485146F2757F53700FD3C8B /* RijksWondersServicesTests.swift */; };
+		948514702757F53700FD3C8B /* CollectionEndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9485146F2757F53700FD3C8B /* CollectionEndpointTests.swift */; };
 		948514712757F53700FD3C8B /* RijksWondersServices.h in Headers */ = {isa = PBXBuildFile; fileRef = 948514652757F53600FD3C8B /* RijksWondersServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		948514792757F59E00FD3C8B /* SomeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948514782757F59E00FD3C8B /* SomeRequest.swift */; };
+		9485147C2757F65100FD3C8B /* CollectionEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9485147B2757F65100FD3C8B /* CollectionEndpoint.swift */; };
+		948514802757FFC000FD3C8B /* SomeResponsePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9485147F2757FFC000FD3C8B /* SomeResponsePayload.swift */; };
+		94851484275803A500FD3C8B /* SomeGetRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94851483275803A500FD3C8B /* SomeGetRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +42,11 @@
 		948514632757F53600FD3C8B /* RijksWondersServices.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RijksWondersServices.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		948514652757F53600FD3C8B /* RijksWondersServices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RijksWondersServices.h; sourceTree = "<group>"; };
 		9485146A2757F53700FD3C8B /* RijksWondersServicesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RijksWondersServicesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9485146F2757F53700FD3C8B /* RijksWondersServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RijksWondersServicesTests.swift; sourceTree = "<group>"; };
+		9485146F2757F53700FD3C8B /* CollectionEndpointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionEndpointTests.swift; sourceTree = "<group>"; };
+		948514782757F59E00FD3C8B /* SomeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeRequest.swift; sourceTree = "<group>"; };
+		9485147B2757F65100FD3C8B /* CollectionEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionEndpoint.swift; sourceTree = "<group>"; };
+		9485147F2757FFC000FD3C8B /* SomeResponsePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeResponsePayload.swift; sourceTree = "<group>"; };
+		94851483275803A500FD3C8B /* SomeGetRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeGetRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +112,10 @@
 			isa = PBXGroup;
 			children = (
 				948514652757F53600FD3C8B /* RijksWondersServices.h */,
+				9485147F2757FFC000FD3C8B /* SomeResponsePayload.swift */,
+				948514782757F59E00FD3C8B /* SomeRequest.swift */,
+				94851483275803A500FD3C8B /* SomeGetRequest.swift */,
+				9485147A2757F62300FD3C8B /* Endpoints */,
 			);
 			path = RijksWondersServices;
 			sourceTree = "<group>";
@@ -111,9 +123,17 @@
 		9485146E2757F53700FD3C8B /* RijksWondersServicesTests */ = {
 			isa = PBXGroup;
 			children = (
-				9485146F2757F53700FD3C8B /* RijksWondersServicesTests.swift */,
+				9485146F2757F53700FD3C8B /* CollectionEndpointTests.swift */,
 			);
 			path = RijksWondersServicesTests;
+			sourceTree = "<group>";
+		};
+		9485147A2757F62300FD3C8B /* Endpoints */ = {
+			isa = PBXGroup;
+			children = (
+				9485147B2757F65100FD3C8B /* CollectionEndpoint.swift */,
+			);
+			path = Endpoints;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,6 +218,7 @@
 					};
 					948514622757F53600FD3C8B = {
 						CreatedOnToolsVersion = 13.1;
+						LastSwiftMigration = 1310;
 					};
 					948514692757F53700FD3C8B = {
 						CreatedOnToolsVersion = 13.1;
@@ -265,6 +286,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94851484275803A500FD3C8B /* SomeGetRequest.swift in Sources */,
+				9485147C2757F65100FD3C8B /* CollectionEndpoint.swift in Sources */,
+				948514792757F59E00FD3C8B /* SomeRequest.swift in Sources */,
+				948514802757FFC000FD3C8B /* SomeResponsePayload.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,7 +297,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				948514702757F53700FD3C8B /* RijksWondersServicesTests.swift in Sources */,
+				948514702757F53700FD3C8B /* CollectionEndpointTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -639,6 +664,7 @@
 		948514762757F53700FD3C8B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -715,6 +741,7 @@
 		948514772757F53700FD3C8B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
