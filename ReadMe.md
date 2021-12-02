@@ -8,4 +8,4 @@ Displayes data from Rijks Museum (Netherlands). Simple demonstration of essentia
 
 
 
-<img src="/Users/maxim/Library/Mobile Documents/com~apple~CloudDocs/Dev/Demo/AlbertHeijn/RijksWonders/Resources/Loading.png" alt="Loading" style="zoom:25%;" /><img src="/Users/maxim/Library/Mobile Documents/com~apple~CloudDocs/Dev/Demo/AlbertHeijn/RijksWonders/Resources/Ready.png" alt="Ready" style="zoom:25%;" /><img src="/Users/maxim/Library/Mobile Documents/com~apple~CloudDocs/Dev/Demo/AlbertHeijn/RijksWonders/Resources/Details.png" alt="Details" style="zoom:25%;" />
+<img src="Resources/Loading.png" alt="Loading" style="zoom:25%;" /><img src="Resources/Ready.png" alt="Ready" style="zoom:25%;" /><img src="Resources/Details.png" alt="Details" style="zoom:25%;" />
