@@ -120,6 +120,13 @@ class ArtCollectionViewController: UIViewController, UICollectionViewDelegate, U
                 preferredStyle: .alert
                 )
             
+            alert.addAction(
+                .init(
+                    title: "Dismiss",
+                    style: .default,
+                    handler: { [unowned self] _ in self.dismiss(animated: true) })
+            )
+            
             self.present(alert, animated: true)
         }
         
