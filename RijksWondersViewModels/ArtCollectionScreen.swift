@@ -85,6 +85,10 @@ public extension ArtCollectionScreen {
         return (title: "Items \(index * Self.pageSize) - \((index + 1) * Self.pageSize - 1)", items: section)
     }
     
+    func preloadedItem(for index: Int, section: Int) -> Item? {
+        model.preloadedPaginatedItems[section]?[index]
+    }
+    
     var hasMore: Bool { model.hasMore }
     
     func fetch() {

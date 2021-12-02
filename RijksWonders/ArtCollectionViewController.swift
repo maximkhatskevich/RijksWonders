@@ -2,7 +2,7 @@ import UIKit
 import Kingfisher
 import RijksWondersViewModels
 
-class ArtCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ArtCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate {
 
     var model: ArtCollectionScreen!
     
@@ -17,6 +17,7 @@ class ArtCollectionViewController: UIViewController, UICollectionViewDelegate, U
         
         assert(model != nil, "Could not initialize model")
         
+        title = "Collection"
         view.backgroundColor = .white
         
         let screenWidth = UIScreen.main.bounds.width
@@ -203,5 +204,14 @@ extension ArtCollectionViewController {
         let section = model.preloadedSection(for: indexPath.section)
         
         header.titleLabel?.text = section.title
+    }
+    
+    func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let item = model.preloadedItem(for: indexPath.item, section: indexPath.section) else {return }
+        
+        let detailsScreen = ArtDetailsViewController()
+        detailsScreen.configure(with: item)
+        navigationController?.pushViewController(detailsScreen, animated: true)
     }
 }

@@ -12,6 +12,7 @@
 		94587FA62758882E00501049 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 94587FA52758882E00501049 /* Kingfisher */; };
 		94587FA827588D8800501049 /* ArtObjectHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94587FA727588D8800501049 /* ArtObjectHeaderView.swift */; };
 		94587FAA27589C8B00501049 /* LoadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94587FA927589C8B00501049 /* LoadMoreCell.swift */; };
+		94587FAC2758A46100501049 /* ArtDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94587FAB2758A46100501049 /* ArtDetailsViewController.swift */; };
 		9485144D2757EE7100FD3C8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9485144C2757EE7100FD3C8B /* AppDelegate.swift */; };
 		9485144F2757EE7100FD3C8B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9485144E2757EE7100FD3C8B /* SceneDelegate.swift */; };
 		948514512757EE7100FD3C8B /* ArtCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948514502757EE7100FD3C8B /* ArtCollectionViewController.swift */; };
@@ -130,6 +131,7 @@
 		94587FA2275885C200501049 /* ArtObjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtObjectCell.swift; sourceTree = "<group>"; };
 		94587FA727588D8800501049 /* ArtObjectHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtObjectHeaderView.swift; sourceTree = "<group>"; };
 		94587FA927589C8B00501049 /* LoadMoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreCell.swift; sourceTree = "<group>"; };
+		94587FAB2758A46100501049 /* ArtDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtDetailsViewController.swift; sourceTree = "<group>"; };
 		9485144A2757EE7100FD3C8B /* RijksWonders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RijksWonders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9485144C2757EE7100FD3C8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9485144E2757EE7100FD3C8B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 				9485144C2757EE7100FD3C8B /* AppDelegate.swift */,
 				9485144E2757EE7100FD3C8B /* SceneDelegate.swift */,
 				948514502757EE7100FD3C8B /* ArtCollectionViewController.swift */,
+				94587FAB2758A46100501049 /* ArtDetailsViewController.swift */,
 				94587FA2275885C200501049 /* ArtObjectCell.swift */,
 				94587FA927589C8B00501049 /* LoadMoreCell.swift */,
 				94587FA727588D8800501049 /* ArtObjectHeaderView.swift */,
@@ -631,6 +634,7 @@
 				94587FA12758766A00501049 /* Config.swift in Sources */,
 				9485144D2757EE7100FD3C8B /* AppDelegate.swift in Sources */,
 				9485144F2757EE7100FD3C8B /* SceneDelegate.swift in Sources */,
+				94587FAC2758A46100501049 /* ArtDetailsViewController.swift in Sources */,
 				94587FA827588D8800501049 /* ArtObjectHeaderView.swift in Sources */,
 				94587FA3275885C200501049 /* ArtObjectCell.swift in Sources */,
 			);
