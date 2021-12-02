@@ -130,6 +130,7 @@ public extension ArtCollection {
                         self.preloadedPaginatedItems[self.pageNumber] = responsePayload.artObjects
                         self.onUpdate(self.pageNumber)
                     case .failure(let error):
+                        self.pageNumber -= 1
                         self.onFailure(error)
                 }
             }
