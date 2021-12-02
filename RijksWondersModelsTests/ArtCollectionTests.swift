@@ -16,21 +16,21 @@ extension ArtCollectionTests {
         
         let expectReady = expectation(description: "Ready")
         
-        XCTAssertEqual(artCollection.items.count, 0)
+        XCTAssertEqual(artCollection.allItems.count, 0)
         XCTAssertFalse(artCollection.hasMore)
-        XCTAssertFalse(artCollection.isBusy)
+        XCTAssertFalse(artCollection.isLoading)
         
         artCollection.onReady = { [unowned artCollection] in
             
             XCTAssertEqual(Thread.main, Thread.current)
-            XCTAssertEqual(artCollection.items.count, 15)
+            XCTAssertEqual(artCollection.allItems.count, 15)
             XCTAssertTrue(artCollection.hasMore)
-            XCTAssertFalse(artCollection.isBusy)
+            XCTAssertFalse(artCollection.isLoading)
             expectReady.fulfill()
         }
         
         artCollection.fetch()
-        XCTAssertTrue(artCollection.isBusy)
+        XCTAssertTrue(artCollection.isLoading)
         
         waitForExpectations(timeout: 1)
     }
@@ -43,20 +43,21 @@ extension ArtCollectionTests {
         
         artCollection.onReady = { [unowned artCollection] in
             
-            XCTAssertEqual(artCollection.items.count, 15)
+            XCTAssertEqual(artCollection.allItems.count, 15)
             XCTAssertTrue(artCollection.hasMore)
-            XCTAssertFalse(artCollection.isBusy)
+            XCTAssertFalse(artCollection.isLoading)
             
             self.backend.pageNumber = 1
             artCollection.fetchNext()
-            XCTAssertTrue(artCollection.isBusy)
+            XCTAssertTrue(artCollection.isLoading)
             
-            artCollection.onUpdate = { [unowned artCollection] in
+            artCollection.onUpdate = { [unowned artCollection] pageNumToUpdate in
                 
                 XCTAssertEqual(Thread.main, Thread.current)
-                XCTAssertEqual(artCollection.items.count, 23)
+                XCTAssertEqual(pageNumToUpdate, 1)
+                XCTAssertEqual(artCollection.allItems.count, 23)
                 XCTAssertFalse(artCollection.hasMore)
-                XCTAssertFalse(artCollection.isBusy)
+                XCTAssertFalse(artCollection.isLoading)
                 expectUpdate.fulfill()
             }
         }
@@ -73,7 +74,7 @@ extension ArtCollectionTests {
             
             XCTAssertEqual(Thread.main, Thread.current)
             XCTAssert($0 is BackendMock.MockError)
-            XCTAssertFalse(artCollection.isBusy)
+            XCTAssertFalse(artCollection.isLoading)
             expectFailure.fulfill()
         }
         

@@ -11,17 +11,16 @@ public final class ArtCollection {
     public let pageSize: Int
     
     public private(set) var totalAvailableItemsCount: Int = 0
-    public private(set) var allAvailablePageCounts: [Int: Int] = [:]
     
-    public private(set) var preloadedPaginatedItems: [Int: [ArtObject]] = [:] {
+    public private(set) var itemsPerPage: [Int: [ArtObject]] = [:] {
         didSet {
-            hasMore = allPreloadedItems.count < totalAvailableItemsCount
+            hasMore = allItems.count < totalAvailableItemsCount
         }
     }
     
-    public var allPreloadedItems: [ArtObject] { preloadedPaginatedItems.values.flatMap { $0 } }
+    public var allItems: [ArtObject] { itemsPerPage.values.flatMap { $0 } }
     
-    public private(set) var hasMore: Bool = false
+    private(set) var hasMore: Bool = false
     
     public var onStartLoading: () -> Void = {}
     
@@ -72,7 +71,7 @@ public extension ArtCollection {
     
     func fetch() {
         
-        guard !isLoading, preloadedPaginatedItems.isEmpty else { return }
+        guard !isLoading, itemsPerPage.isEmpty else { return }
         
         let request = CollectionEndpoint(p: pageNumber, ps: pageSize)
         
@@ -89,16 +88,7 @@ public extension ArtCollection {
                         
                     case .success(let responsePayload):
                         self.totalAvailableItemsCount = responsePayload.count
-                        
-                        let totalNumberOfFullPages = Int(self.totalAvailableItemsCount / self.pageSize)
-                        
-                        (0...totalNumberOfFullPages).forEach {
-                            self.allAvailablePageCounts[$0] = self.pageSize
-                        }
-                        
-                        self.allAvailablePageCounts[totalNumberOfFullPages + 1] = self.totalAvailableItemsCount % self.pageSize
-                        
-                        self.preloadedPaginatedItems[self.pageNumber] = responsePayload.artObjects
+                        self.itemsPerPage[self.pageNumber] = responsePayload.artObjects
                         self.onReady()
                         
                     case .failure(let error):
@@ -127,7 +117,7 @@ public extension ArtCollection {
                 switch result {
                         
                     case .success(let responsePayload):
-                        self.preloadedPaginatedItems[self.pageNumber] = responsePayload.artObjects
+                        self.itemsPerPage[self.pageNumber] = responsePayload.artObjects
                         self.onUpdate(self.pageNumber)
                     case .failure(let error):
                         self.pageNumber -= 1

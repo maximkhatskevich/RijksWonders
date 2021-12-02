@@ -76,20 +76,40 @@ public extension ArtCollectionScreen {
 
 public extension ArtCollectionScreen {
     
-    var numberOfPreloadedSections: Int {
-        model.preloadedPaginatedItems.count
+    var numberOfSections: Int {
+        
+        model.itemsPerPage.count
     }
     
-    func preloadedSection(for index: Int) -> Section {
-        let section = model.preloadedPaginatedItems[index] ?? []
-        return (title: "Items \(index * Self.pageSize) - \((index + 1) * Self.pageSize - 1)", items: section)
+    func numberOfItemsInSection(at sectionIndex: Int) -> Int {
+        
+        let shouldShowLoadMoreButton = sectionIndex == lastSectionIndex
+        let sectionItems = model.itemsPerPage[sectionIndex] ?? []
+        return sectionItems.count + (shouldShowLoadMoreButton ? 1 : 0)
     }
     
-    func preloadedItem(for index: Int, section: Int) -> Item? {
-        model.preloadedPaginatedItems[section]?[index]
+    func isLast(item itemIndex: Int, inLastSection sectionIndex: Int) -> Bool {
+        
+        let isLastSection = (sectionIndex == lastSectionIndex)
+        let isLastCell = itemIndex == lastItemIndexInSection(at: sectionIndex)
+        
+        return isLastSection && isLastCell
     }
     
-    var hasMore: Bool { model.hasMore }
+    func item(at itemIndex: Int, inSection sectionIndex: Int) -> Item? {
+        
+        model.itemsPerPage[sectionIndex]?[itemIndex]
+    }
+    
+    func section(at sectionIndex: Int) -> Section? {
+        
+        model
+            .itemsPerPage[sectionIndex]
+            .map {(
+                "Items \(sectionIndex * Self.pageSize) - \((sectionIndex + 1) * Self.pageSize - 1)",
+                items: $0
+            )}
+    }
     
     func fetch() {
         
@@ -99,5 +119,20 @@ public extension ArtCollectionScreen {
     func fetchNext() {
         
         model.fetchNext()
+    }
+}
+
+// MARK: - Helpers
+
+private extension ArtCollectionScreen {
+    
+    var lastSectionIndex: Int {
+        
+        numberOfSections - 1
+    }
+    
+    func lastItemIndexInSection(at indexSection: Int) -> Int {
+        
+        numberOfItemsInSection(at: indexSection) - 1
     }
 }

@@ -139,13 +139,12 @@ class ArtCollectionViewController: UIViewController, UICollectionViewDelegate, U
 extension ArtCollectionViewController {
     
     func numberOfSections(in _: UICollectionView) -> Int {
-        model.numberOfPreloadedSections
+        model.numberOfSections
     }
     
     func collectionView(_: UICollectionView, numberOfItemsInSection sectionIndex: Int) -> Int {
         
-        let addExtraCell = (model.numberOfPreloadedSections - 1) == sectionIndex // extra cell for "load more"?
-        return model.preloadedSection(for: sectionIndex).items.count + (addExtraCell ? 1 : 0)
+        model.numberOfItemsInSection(at: sectionIndex)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -171,11 +170,7 @@ extension ArtCollectionViewController {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let isLastSection = indexPath.section == (model.numberOfPreloadedSections - 1)
-        let section = model.preloadedSection(for: indexPath.section)
-        let isLastCell = indexPath.item == section.items.count // beyond last item
-        
-        if isLastSection && isLastCell {
+        if model.isLast(item: indexPath.item, inLastSection: indexPath.section) {
             return collectionView.dequeueReusableCell(
                 withReuseIdentifier: ArtCollectionScreen.loadMoreCellId,
                 for: indexPath
@@ -190,9 +185,7 @@ extension ArtCollectionViewController {
     
     func collectionView(_: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
-        if let cell = cell as? ArtObjectCell {
-            
-            let item = model.preloadedSection(for: indexPath.section).items[indexPath.item]
+        if let cell = cell as? ArtObjectCell, let item = model.item(at: indexPath.item, inSection: indexPath.section) {
             
             cell.imageView?.kf.setImage(with: item.headerImage.url)
             cell.titleLabel?.text = item.title
@@ -206,16 +199,14 @@ extension ArtCollectionViewController {
     
     func collectionView(_: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
         
-        guard let header = view as? ArtObjectHeaderView else { return }
-        
-        let section = model.preloadedSection(for: indexPath.section)
+        guard let header = view as? ArtObjectHeaderView, let section = model.section(at: indexPath.section) else { return }
         
         header.titleLabel?.text = section.title
     }
     
     func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        guard let item = model.preloadedItem(for: indexPath.item, section: indexPath.section) else {return }
+        guard let item = model.item(at: indexPath.item, inSection: indexPath.section) else {return }
         
         let detailsScreen = ArtDetailsViewController()
         detailsScreen.configure(with: item)
