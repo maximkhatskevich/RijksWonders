@@ -11,6 +11,7 @@ public final class ArtCollection {
     public let pageSize: Int
     
     public private(set) var totalAvailableItemsCount: Int = 0
+    public private(set) var allAvailablePageCounts: [Int: Int] = [:]
     
     public private(set) var preloadedPaginatedItems: [Int: [ArtObject]] = [:] {
         didSet {
@@ -88,8 +89,18 @@ public extension ArtCollection {
                         
                     case .success(let responsePayload):
                         self.totalAvailableItemsCount = responsePayload.count
+                        
+                        let totalNumberOfFullPages = Int(self.totalAvailableItemsCount / self.pageSize)
+                        
+                        (0...totalNumberOfFullPages).forEach {
+                            self.allAvailablePageCounts[$0] = self.pageSize
+                        }
+                        
+                        self.allAvailablePageCounts[totalNumberOfFullPages + 1] = self.totalAvailableItemsCount % self.pageSize
+                        
                         self.preloadedPaginatedItems[self.pageNumber] = responsePayload.artObjects
                         self.onReady()
+                        
                     case .failure(let error):
                         self.onFailure(error)
                 }

@@ -42,12 +42,6 @@ public final class ArtCollectionScreen {
     
     public var onFailure: (Alert) -> Void = { _ in }
     
-    public var sections: [Section] {
-        model.preloadedPaginatedItems.map { (header: "\($0.key)", items: $0.value) }
-    }
-    
-    public var canLoadMore: Bool { model.hasMore }
-    
     public init(model: ArtCollection? = nil) throws {
         
         self.model = try model ?? ArtCollection(pageSize: Self.pageSize)
@@ -64,7 +58,7 @@ public final class ArtCollectionScreen {
 public extension ArtCollectionScreen {
     
     typealias Item = ArtCollection.ArtObject
-    typealias Section = (header: String, items: [Item])
+    typealias Section = (title: String, items: [Item])
     typealias Alert = (title: String, message: String)
 }
     
@@ -74,11 +68,24 @@ public extension ArtCollectionScreen {
     
     static let pageSize: Int = 10
     static let cellId = "ArtCell"
+    static let headerId = "ArtHeader"
+    static let loadMoreCellId = "ArtCellLoadMore"
 }
 
-// MARK: - Commands
+// MARK: - Misc
 
 public extension ArtCollectionScreen {
+    
+    var numberOfPreloadedSections: Int {
+        model.preloadedPaginatedItems.count
+    }
+    
+    func preloadedSection(for index: Int) -> Section {
+        let section = model.preloadedPaginatedItems[index] ?? []
+        return (title: "Items \(index * Self.pageSize) - \((index + 1) * Self.pageSize - 1)", items: section)
+    }
+    
+    var hasMore: Bool { model.hasMore }
     
     func fetch() {
         
