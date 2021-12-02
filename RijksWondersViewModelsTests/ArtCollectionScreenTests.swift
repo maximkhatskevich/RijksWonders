@@ -1,36 +1,34 @@
 import XCTest
 @testable import RijksWondersModels
 @testable import RijksWondersServices
+@testable import RijksWondersViewModels
 
-class ArtCollectionTests: XCTestCase {
+class ArtCollectionScreenTests: XCTestCase {
     
     fileprivate let backend = BackendMock(pageSize: 15)
-    lazy var sut = try! ArtCollection(backend: backend, pageSize: 15)
+    lazy var artCollection = try! ArtCollection(backend: backend, pageSize: 15)
+    lazy var sut = try! ArtCollectionScreen(model: artCollection)
 }
 
 // MARK: - Tests
 
-extension ArtCollectionTests {
+extension ArtCollectionScreenTests {
     
     func test_initialFetch_happyPath() throws {
         
         let expectReady = expectation(description: "Ready")
         
-        XCTAssertEqual(sut.allItems.count, 0)
-        XCTAssertFalse(sut.hasMore)
-        XCTAssertFalse(sut.isLoading)
+        XCTAssertEqual(sut.numberOfSections, 0)
         
-        sut.onReady = { [unowned sut] in
+        artCollection.onReady = { [unowned sut] in
             
             XCTAssertEqual(Thread.main, Thread.current)
-            XCTAssertEqual(sut.allItems.count, 15)
-            XCTAssertTrue(sut.hasMore)
-            XCTAssertFalse(sut.isLoading)
+            XCTAssertEqual(sut.numberOfSections, 1)
+            XCTAssertEqual(sut.numberOfItemsInSection(at: 0), 16) // +1 for "load more" cell
             expectReady.fulfill()
         }
         
         sut.fetch()
-        XCTAssertTrue(sut.isLoading)
         
         waitForExpectations(timeout: 1)
     }
@@ -41,26 +39,40 @@ extension ArtCollectionTests {
         
         sut.fetch()
         
-        sut.onReady = { [unowned sut] in
+        sut.onReady = { [unowned artCollection, unowned sut] in
             
-            XCTAssertEqual(sut.allItems.count, 15)
-            XCTAssertTrue(sut.hasMore)
-            XCTAssertFalse(sut.isLoading)
+            XCTAssertEqual(sut.numberOfItemsInSection(at: 0), 16) // +1 for "load more" cell
             
             self.backend.pageNumber = 1
             sut.fetchNext()
-            XCTAssertTrue(sut.isLoading)
             
-            sut.onUpdate = { [unowned sut] pageNumToUpdate in
+            sut.onUpdate = { [unowned artCollection, unowned sut] pageNumToUpdate in
                 
                 XCTAssertEqual(Thread.main, Thread.current)
                 XCTAssertEqual(pageNumToUpdate, 1)
-                XCTAssertEqual(sut.allItems.count, 23)
-                XCTAssertFalse(sut.hasMore)
-                XCTAssertFalse(sut.isLoading)
+                XCTAssertEqual(artCollection.allItems.count, 23)
+                XCTAssertEqual(sut.numberOfItemsInSection(at: 0), 15) // same as page size
+                XCTAssertEqual(sut.numberOfItemsInSection(at: 1), 9) // +1 for "load more" cell
                 expectUpdate.fulfill()
             }
         }
+        
+        waitForExpectations(timeout: 1)
+    }
+    
+    func test_lastItemIndexes() throws {
+        
+        let expectReady = expectation(description: "Ready")
+        
+        artCollection.onReady = { [unowned artCollection, unowned sut] in
+            
+            XCTAssertEqual(sut.numberOfSections, 1)
+            XCTAssertEqual(artCollection.allItems.count, 15)
+            XCTAssertTrue(sut.isLast(item: 15, inLastSection: 0)) // +1 for "load more" cell
+            expectReady.fulfill()
+        }
+        
+        sut.fetch()
         
         waitForExpectations(timeout: 1)
     }
@@ -70,11 +82,9 @@ extension ArtCollectionTests {
         let expectFailure = expectation(description: "Failure")
         
         backend.shouldReturnError = true
-        sut.onFailure = { [unowned sut] in
+        sut.onFailure = { _ in
             
             XCTAssertEqual(Thread.main, Thread.current)
-            XCTAssert($0 is BackendMock.MockError)
-            XCTAssertFalse(sut.isLoading)
             expectFailure.fulfill()
         }
         
