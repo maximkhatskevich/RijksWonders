@@ -5,9 +5,23 @@ import XCTest
 
 class ArtCollectionScreenTests: XCTestCase {
     
-    fileprivate let backend = BackendMock(pageSize: 15)
-    lazy var artCollection = try! ArtCollection(backend: backend, pageSize: 15)
-    lazy var sut = try! ArtCollectionScreen(model: artCollection)
+    fileprivate var backend: BackendMock!
+    var artCollection: ArtCollection!
+    var sut: ArtCollectionScreen!
+    
+    override func setUp() {
+        
+        backend = BackendMock(pageSize: 15)
+        artCollection = try! ArtCollection(backend: backend, pageSize: 15)
+        sut = try! ArtCollectionScreen(model: artCollection)
+    }
+    
+    override func tearDown() {
+        
+        backend = nil
+        artCollection = nil
+        sut = nil
+    }
 }
 
 // MARK: - Tests
@@ -20,11 +34,11 @@ extension ArtCollectionScreenTests {
         
         XCTAssertEqual(sut.numberOfSections, 0)
         
-        artCollection.onReady = { [unowned sut] in
+        artCollection.onReady = { [unowned self] in
             
             XCTAssertEqual(Thread.main, Thread.current)
-            XCTAssertEqual(sut.numberOfSections, 1)
-            XCTAssertEqual(sut.numberOfItemsInSection(at: 0), 16) // +1 for "load more" cell
+            XCTAssertEqual(self.sut.numberOfSections, 1)
+            XCTAssertEqual(self.sut.numberOfItemsInSection(at: 0), 16) // +1 for "load more" cell
             expectReady.fulfill()
         }
         
@@ -39,20 +53,20 @@ extension ArtCollectionScreenTests {
         
         sut.fetch()
         
-        sut.onReady = { [unowned artCollection, unowned sut] in
+        sut.onReady = { [unowned self] in
             
             XCTAssertEqual(sut.numberOfItemsInSection(at: 0), 16) // +1 for "load more" cell
             
             self.backend.pageNumber = 1
-            sut.fetchNext()
+            self.sut.fetchNext()
             
-            sut.onUpdate = { [unowned artCollection, unowned sut] pageNumToUpdate in
+            self.sut.onUpdate = { pageNumToUpdate in
                 
                 XCTAssertEqual(Thread.main, Thread.current)
                 XCTAssertEqual(pageNumToUpdate, 1)
-                XCTAssertEqual(artCollection.allItems.count, 23)
-                XCTAssertEqual(sut.numberOfItemsInSection(at: 0), 15) // same as page size
-                XCTAssertEqual(sut.numberOfItemsInSection(at: 1), 9) // +1 for "load more" cell
+                XCTAssertEqual(self.artCollection.allItems.count, 23)
+                XCTAssertEqual(self.sut.numberOfItemsInSection(at: 0), 15) // same as page size
+                XCTAssertEqual(self.sut.numberOfItemsInSection(at: 1), 9) // +1 for "load more" cell
                 expectUpdate.fulfill()
             }
         }
@@ -64,11 +78,11 @@ extension ArtCollectionScreenTests {
         
         let expectReady = expectation(description: "Ready")
         
-        artCollection.onReady = { [unowned artCollection, unowned sut] in
+        artCollection.onReady = { [unowned self] in
             
-            XCTAssertEqual(sut.numberOfSections, 1)
-            XCTAssertEqual(artCollection.allItems.count, 15)
-            XCTAssertTrue(sut.isLast(item: 15, inLastSection: 0)) // +1 for "load more" cell
+            XCTAssertEqual(self.sut.numberOfSections, 1)
+            XCTAssertEqual(self.artCollection.allItems.count, 15)
+            XCTAssertTrue(self.sut.isLast(item: 15, inLastSection: 0)) // +1 for "load more" cell
             expectReady.fulfill()
         }
         

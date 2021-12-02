@@ -4,8 +4,20 @@ import XCTest
 
 class ArtCollectionTests: XCTestCase {
     
-    fileprivate let backend = BackendMock(pageSize: 15)
-    lazy var sut = try! ArtCollection(backend: backend, pageSize: 15)
+    fileprivate var backend: BackendMock!
+    var sut: ArtCollection!
+    
+    override func setUp() {
+        
+        backend = BackendMock(pageSize: 15)
+        sut = try! ArtCollection(backend: backend, pageSize: 15)
+    }
+    
+    override func tearDown() {
+        
+        backend = nil
+        sut = nil
+    }
 }
 
 // MARK: - Tests
@@ -20,12 +32,12 @@ extension ArtCollectionTests {
         XCTAssertFalse(sut.hasMore)
         XCTAssertFalse(sut.isLoading)
         
-        sut.onReady = { [unowned sut] in
+        sut.onReady = { [unowned self] in
             
             XCTAssertEqual(Thread.main, Thread.current)
-            XCTAssertEqual(sut.allItems.count, 15)
-            XCTAssertTrue(sut.hasMore)
-            XCTAssertFalse(sut.isLoading)
+            XCTAssertEqual(self.sut.allItems.count, 15)
+            XCTAssertTrue(self.sut.hasMore)
+            XCTAssertFalse(self.sut.isLoading)
             expectReady.fulfill()
         }
         
@@ -41,23 +53,23 @@ extension ArtCollectionTests {
         
         sut.fetch()
         
-        sut.onReady = { [unowned sut] in
+        sut.onReady = { [unowned self] in
             
-            XCTAssertEqual(sut.allItems.count, 15)
-            XCTAssertTrue(sut.hasMore)
-            XCTAssertFalse(sut.isLoading)
+            XCTAssertEqual(self.sut.allItems.count, 15)
+            XCTAssertTrue(self.sut.hasMore)
+            XCTAssertFalse(self.sut.isLoading)
             
             self.backend.pageNumber = 1
-            sut.fetchNext()
-            XCTAssertTrue(sut.isLoading)
+            self.sut.fetchNext()
+            XCTAssertTrue(self.sut.isLoading)
             
-            sut.onUpdate = { [unowned sut] pageNumToUpdate in
+            sut.onUpdate = { [unowned self] pageNumToUpdate in
                 
                 XCTAssertEqual(Thread.main, Thread.current)
                 XCTAssertEqual(pageNumToUpdate, 1)
-                XCTAssertEqual(sut.allItems.count, 23)
-                XCTAssertFalse(sut.hasMore)
-                XCTAssertFalse(sut.isLoading)
+                XCTAssertEqual(self.sut.allItems.count, 23)
+                XCTAssertFalse(self.sut.hasMore)
+                XCTAssertFalse(self.sut.isLoading)
                 expectUpdate.fulfill()
             }
         }
@@ -70,11 +82,11 @@ extension ArtCollectionTests {
         let expectFailure = expectation(description: "Failure")
         
         backend.shouldReturnError = true
-        sut.onFailure = { [unowned sut] in
+        sut.onFailure = { [unowned self] in
             
             XCTAssertEqual(Thread.main, Thread.current)
             XCTAssert($0 is BackendMock.MockError)
-            XCTAssertFalse(sut.isLoading)
+            XCTAssertFalse(self.sut.isLoading)
             expectFailure.fulfill()
         }
         
