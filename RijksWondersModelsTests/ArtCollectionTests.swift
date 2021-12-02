@@ -51,7 +51,7 @@ extension ArtCollectionTests {
             artCollection.fetchNext()
             XCTAssertTrue(artCollection.isBusy)
             
-            artCollection.onUpdated = { [unowned artCollection] in
+            artCollection.onUpdate = { [unowned artCollection] in
                 
                 XCTAssertEqual(Thread.main, Thread.current)
                 XCTAssertEqual(artCollection.items.count, 23)

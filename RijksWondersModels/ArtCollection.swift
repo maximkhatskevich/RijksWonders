@@ -14,19 +14,34 @@ public final class ArtCollection {
     
     public private(set) var hasMore: Bool = false
     
-    var onReady: () -> Void = {}
+    public var onStartLoading: () -> Void = {}
     
-    var onUpdated: () -> Void = {}
+    public var onReady: () -> Void = {}
     
-    var onFailure: (Error) -> Void = { _ in }
+    public var onUpdate: () -> Void = {}
     
-    private(set) var isBusy = false
+    public var onStopLoading: () -> Void = {}
     
-    public init(backend: SomeBackend, pageSize: UInt) throws {
+    public var onFailure: (Error) -> Void = { _ in }
+    
+    private(set) var isBusy = false {
+        didSet {
+            if isBusy {
+                self.onStartLoading()
+            } else {
+                self.onStopLoading()
+            }
+        }
+    }
+    
+    public init(backend: SomeBackend? = nil, pageSize: UInt) throws {
         
         guard 1...100 ~= pageSize else { throw InitializationError.incorrectPageSize }
         
-        self.backend = backend
+        self.backend = backend ?? Backend(
+            host: Config.backendHost,
+            key: Config.backendKey
+        )
         self.pageSize = pageSize
     }
 }
@@ -93,7 +108,7 @@ public extension ArtCollection {
                     case .success(let responsePayload):
                         self.items += responsePayload.artObjects // +
                         self.hasMore = responsePayload.count > self.items.count // still has more?
-                        self.onUpdated()
+                        self.onUpdate()
                     case .failure(let error):
                         self.onFailure(error)
                 }
