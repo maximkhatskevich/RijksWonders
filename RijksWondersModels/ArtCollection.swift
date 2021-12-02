@@ -6,27 +6,35 @@ public final class ArtCollection {
     
     let backend: SomeBackend
     
-    public private(set) var pageNumber: UInt = 0
+    public private(set) var pageNumber: Int = 0
     
-    public let pageSize: UInt
+    public let pageSize: Int
     
-    public private(set) var items: [ArtObject] = []
+    public private(set) var totalAvailableItemsCount: Int = 0
+    
+    public private(set) var preloadedPaginatedItems: [Int: [ArtObject]] = [:] {
+        didSet {
+            hasMore = allPreloadedItems.count < totalAvailableItemsCount
+        }
+    }
+    
+    public var allPreloadedItems: [ArtObject] { preloadedPaginatedItems.values.flatMap { $0 } }
     
     public private(set) var hasMore: Bool = false
     
     public var onStartLoading: () -> Void = {}
     
+    public var onStopLoading: () -> Void = {}
+    
     public var onReady: () -> Void = {}
     
-    public var onUpdate: () -> Void = {}
-    
-    public var onStopLoading: () -> Void = {}
+    public var onUpdate: (_ sectionToUpdate: Int) -> Void = { _ in }
     
     public var onFailure: (Error) -> Void = { _ in }
     
-    private(set) var isBusy = false {
+    private(set) var isLoading = false {
         didSet {
-            if isBusy {
+            if isLoading {
                 self.onStartLoading()
             } else {
                 self.onStopLoading()
@@ -34,7 +42,7 @@ public final class ArtCollection {
         }
     }
     
-    public init(backend: SomeBackend? = nil, pageSize: UInt) throws {
+    public init(backend: SomeBackend? = nil, pageSize: Int) throws {
         
         guard 1...100 ~= pageSize else { throw InitializationError.incorrectPageSize }
         
@@ -63,23 +71,24 @@ public extension ArtCollection {
     
     func fetch() {
         
-        guard !isBusy, items.isEmpty else { return }
+        guard !isLoading, preloadedPaginatedItems.isEmpty else { return }
         
-        isBusy = true
         let request = CollectionEndpoint(p: pageNumber, ps: pageSize)
         
+        isLoading = true
         backend.sendGetRequest(request) { [weak self] result in
             
             guard let self = self else { return }
             
             self.deliverQueue.async {
                 
-                self.isBusy = false
+                self.isLoading = false
+                
                 switch result {
                         
                     case .success(let responsePayload):
-                        self.items = responsePayload.artObjects
-                        self.hasMore = responsePayload.count > self.items.count
+                        self.totalAvailableItemsCount = responsePayload.count
+                        self.preloadedPaginatedItems[self.pageNumber] = responsePayload.artObjects
                         self.onReady()
                     case .failure(let error):
                         self.onFailure(error)
@@ -90,25 +99,25 @@ public extension ArtCollection {
     
     func fetchNext() {
         
-        guard !isBusy, hasMore else { return }
+        guard !isLoading, hasMore else { return }
         
-        isBusy = true
         pageNumber += 1
         let request = CollectionEndpoint(p: pageNumber, ps: pageSize)
         
+        isLoading = true
         backend.sendGetRequest(request) { [weak self] result in
             
             guard let self = self else { return }
             
             self.deliverQueue.async {
                 
-                self.isBusy = false
+                self.isLoading = false
+                
                 switch result {
                         
                     case .success(let responsePayload):
-                        self.items += responsePayload.artObjects // +
-                        self.hasMore = responsePayload.count > self.items.count // still has more?
-                        self.onUpdate()
+                        self.preloadedPaginatedItems[self.pageNumber] = responsePayload.artObjects
+                        self.onUpdate(self.pageNumber)
                     case .failure(let error):
                         self.onFailure(error)
                 }

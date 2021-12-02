@@ -5,12 +5,12 @@ public struct CollectionEndpoint: SomeGetRequest {
     public var culture: Culture = .en
     
     /// The result page. 0-n. Note that p * ps cannot exceed 10,000.
-    public var p: UInt?
+    public var p: Int?
     
     /// The number of results per page. 1-100
-    public var ps: UInt?
+    public var ps: Int?
     
-    public init(culture: CollectionEndpoint.Culture = .en, p: UInt? = nil, ps: UInt? = nil) {
+    public init(culture: CollectionEndpoint.Culture = .en, p: Int? = nil, ps: Int? = nil) {
         self.culture = culture
         self.p = p
         self.ps = ps

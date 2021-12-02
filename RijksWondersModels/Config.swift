@@ -1,3 +1,4 @@
+/// Configuration potentially shared among different models.
 enum Config {
     
     static let backendHost = "www.rijksmuseum.nl"

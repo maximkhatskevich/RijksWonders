@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		94587FA12758766A00501049 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94587FA02758766A00501049 /* Config.swift */; };
 		9485144D2757EE7100FD3C8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9485144C2757EE7100FD3C8B /* AppDelegate.swift */; };
 		9485144F2757EE7100FD3C8B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9485144E2757EE7100FD3C8B /* SceneDelegate.swift */; };
 		948514512757EE7100FD3C8B /* ArtCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948514502757EE7100FD3C8B /* ArtCollectionViewController.swift */; };
@@ -29,7 +30,6 @@
 		948514A32758269100FD3C8B /* RijksWondersServices.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 948514632757F53600FD3C8B /* RijksWondersServices.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		948514AA27582F2300FD3C8B /* ArtCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948514A927582F2300FD3C8B /* ArtCollection.swift */; };
 		948514B127585FA100FD3C8B /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948514B027585FA100FD3C8B /* Config.swift */; };
-		948514B52758611E00FD3C8B /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948514B42758611E00FD3C8B /* Config.swift */; };
 		948514C3275866B200FD3C8B /* RijksWondersViewModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948514BB275866B200FD3C8B /* RijksWondersViewModels.framework */; };
 		948514C8275866B200FD3C8B /* RijksWondersViewModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948514C7275866B200FD3C8B /* RijksWondersViewModelsTests.swift */; };
 		948514C9275866B200FD3C8B /* RijksWondersViewModels.h in Headers */ = {isa = PBXBuildFile; fileRef = 948514BD275866B200FD3C8B /* RijksWondersViewModels.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -37,6 +37,7 @@
 		948514D1275866D500FD3C8B /* RijksWondersModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9485148C2758263E00FD3C8B /* RijksWondersModels.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		948514D5275866DF00FD3C8B /* RijksWondersViewModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948514BB275866B200FD3C8B /* RijksWondersViewModels.framework */; };
 		948514D6275866DF00FD3C8B /* RijksWondersViewModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 948514BB275866B200FD3C8B /* RijksWondersViewModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		948514DB2758673400FD3C8B /* ArtCollectionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948514DA2758673400FD3C8B /* ArtCollectionScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +122,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		94587FA02758766A00501049 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		9485144A2757EE7100FD3C8B /* RijksWonders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RijksWonders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9485144C2757EE7100FD3C8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9485144E2757EE7100FD3C8B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -145,11 +147,11 @@
 		948514982758263E00FD3C8B /* ArtCollectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtCollectionTests.swift; sourceTree = "<group>"; };
 		948514A927582F2300FD3C8B /* ArtCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtCollection.swift; sourceTree = "<group>"; };
 		948514B027585FA100FD3C8B /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
-		948514B42758611E00FD3C8B /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		948514BB275866B200FD3C8B /* RijksWondersViewModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RijksWondersViewModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		948514BD275866B200FD3C8B /* RijksWondersViewModels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RijksWondersViewModels.h; sourceTree = "<group>"; };
 		948514C2275866B200FD3C8B /* RijksWondersViewModelsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RijksWondersViewModelsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		948514C7275866B200FD3C8B /* RijksWondersViewModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RijksWondersViewModelsTests.swift; sourceTree = "<group>"; };
+		948514DA2758673400FD3C8B /* ArtCollectionScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtCollectionScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,7 +245,7 @@
 		9485144B2757EE7100FD3C8B /* RijksWonders */ = {
 			isa = PBXGroup;
 			children = (
-				948514B42758611E00FD3C8B /* Config.swift */,
+				94587FA02758766A00501049 /* Config.swift */,
 				9485144C2757EE7100FD3C8B /* AppDelegate.swift */,
 				9485144E2757EE7100FD3C8B /* SceneDelegate.swift */,
 				948514502757EE7100FD3C8B /* ArtCollectionViewController.swift */,
@@ -314,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				948514BD275866B200FD3C8B /* RijksWondersViewModels.h */,
+				948514DA2758673400FD3C8B /* ArtCollectionScreen.swift */,
 			);
 			path = RijksWondersViewModels;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 					};
 					948514BA275866B200FD3C8B = {
 						CreatedOnToolsVersion = 13.1;
+						LastSwiftMigration = 1310;
 					};
 					948514C1275866B200FD3C8B = {
 						CreatedOnToolsVersion = 13.1;
@@ -606,7 +610,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				948514512757EE7100FD3C8B /* ArtCollectionViewController.swift in Sources */,
-				948514B52758611E00FD3C8B /* Config.swift in Sources */,
+				94587FA12758766A00501049 /* Config.swift in Sources */,
 				9485144D2757EE7100FD3C8B /* AppDelegate.swift in Sources */,
 				9485144F2757EE7100FD3C8B /* SceneDelegate.swift in Sources */,
 			);
@@ -655,6 +659,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				948514DB2758673400FD3C8B /* ArtCollectionScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,6 +734,7 @@
 		9485145C2757EE7200FD3C8B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -812,6 +818,7 @@
 		9485145D2757EE7200FD3C8B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1681,6 +1688,7 @@
 		948514CE275866B200FD3C8B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1757,6 +1765,7 @@
 		948514CF275866B200FD3C8B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;

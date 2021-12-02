@@ -1,4 +1,5 @@
+import Foundation
+
 enum Config {
-    static let pageSize: UInt = 10
-    static let cellId = "ArtCell"
+    static let animationDuration: TimeInterval = 0.5
 }
