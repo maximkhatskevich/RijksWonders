@@ -144,7 +144,7 @@ extension ArtCollectionViewController {
     
     func collectionView(_: UICollectionView, numberOfItemsInSection sectionIndex: Int) -> Int {
         
-        let addExtraCell = model.numberOfPreloadedSections == sectionIndex // extra cell for "load more"?
+        let addExtraCell = (model.numberOfPreloadedSections - 1) == sectionIndex // extra cell for "load more"?
         return model.preloadedSection(for: sectionIndex).items.count + (addExtraCell ? 1 : 0)
     }
     
@@ -173,7 +173,7 @@ extension ArtCollectionViewController {
         
         let isLastSection = indexPath.section == (model.numberOfPreloadedSections - 1)
         let section = model.preloadedSection(for: indexPath.section)
-        let isLastCell = indexPath.item == (section.items.count - 1)
+        let isLastCell = indexPath.item == section.items.count // beyond last item
         
         if isLastSection && isLastCell {
             return collectionView.dequeueReusableCell(
